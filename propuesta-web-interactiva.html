@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desarrollo Web Full-Stack | Propuesta Técnica Profesional</title>
+    <meta name="description" content="Soluciones de desarrollo web profesional con tecnologías modernas. Next.js, React, Firebase y más. Presupuesto interactivo en tiempo real.">
+    
+    <!-- Tailwind JIT CDN -->
+    <script src="https://unpkg.com/tailwindcss-jit-cdn"></script>
+    <script type="tailwind-config">
+    {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#6366f1',
+            secondary: '#8b5cf6'
+          }
+        }
+      }
+    }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="antialiased bg-gray-50 text-gray-800">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50" x-data="{ mobileMenuOpen: false }">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold gradient-text">KR.Dev</span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#inicio" class="text-gray-700 hover:text-indigo-600 transition">Inicio</a>
+                    <a href="#servicios" class="text-gray-700 hover:text-indigo-600 transition">Servicios</a>
+                    <a href="#tecnologias" class="text-gray-700 hover:text-indigo-600 transition">Tecnologías</a>
+                    <a href="#paquetes" class="text-gray-700 hover:text-indigo-600 transition">Paquetes</a>
+                    <a href="#calculadora" class="text-gray-700 hover:text-indigo-600 transition">Calculadora</a>
+                    <a href="#contacto" class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition">Contacto</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" x-transition class="md:hidden bg-white border-t">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#inicio" class="block text-gray-700 hover:text-indigo-600">Inicio</a>
+                <a href="#servicios" class="block text-gray-700 hover:text-indigo-600">Servicios</a>
+                <a href="#tecnologias" class="block text-gray-700 hover:text-indigo-600">Tecnologías</a>
+                <a href="#paquetes" class="block text-gray-700 hover:text-indigo-600">Paquetes</a>
+                <a href="#calculadora" class="block text-gray-700 hover:text-indigo-600">Calculadora</a>
+                <a href="#contacto" class="block bg-indigo-600 text-white px-6 py-2 rounded-lg text-center">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="pt-24 pb-16 gradient-bg text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
+                    Desarrollo Web<br>
+                    <span class="text-indigo-200">Full-Stack Profesional</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 text-indigo-100 max-w-3xl mx-auto">
+                    Transformamos tu visión digital en realidad con tecnologías modernas y arquitectura escalable
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="#calculadora" class="bg-white text-indigo-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-indigo-50 transition shadow-lg">
+                        Calcular Presupuesto
+                    </a>
+                    <a href="#contacto" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-indigo-600 transition">
+                        Agendar Reunión
+                    </a>
+                </div>
+                
+                <!-- Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 max-w-4xl mx-auto">
+                    <div>
+                        <div class="text-4xl font-bold">7+</div>
+                        <div class="text-indigo-200 mt-2">Años de Experiencia</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold">50+</div>
+                        <div class="text-indigo-200 mt-2">Proyectos Completados</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold">100%</div>
+                        <div class="text-indigo-200 mt-2">Satisfacción</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold">24/7</div>
+                        <div class="text-indigo-200 mt-2">Soporte Disponible</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicios" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">¿Qué Incluye el Proyecto?</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Una solución completa diseñada para impulsar tu negocio digital
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Service Card 1 -->
+                <div class="bg-white shadow-lg rounded-xl p-8 card-hover border border-gray-100">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Sitio Web Responsive</h3>
+                    <p class="text-gray-600 mb-6">
+                        Diseño 100% adaptable a todos los dispositivos con diseño Mobile-First y optimización para Core Web Vitals.
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-700">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Landing Page optimizada</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Página Quiénes Somos</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Catálogo de Productos dinámico</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>SEO On-Page completo</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="bg-white shadow-lg rounded-xl p-8 card-hover border border-gray-100">
+                    <div class="w-16 h-16 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Panel de Administración</h3>
+                    <p class="text-gray-600 mb-6">
+                        CMS personalizado para que gestiones tu contenido sin conocimientos técnicos. 100% autoadministrable.
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-700">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>CRUD completo de productos</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Gestor de imágenes drag-and-drop</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Preview en tiempo real</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Dashboard con analytics</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="bg-white shadow-lg rounded-xl p-8 card-hover border border-gray-100">
+                    <div class="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Performance & Seguridad</h3>
+                    <p class="text-gray-600 mb-6">
+                        Código optimizado, carga ultrarrápida y protección completa para tu sitio web profesional.
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-700">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Certificado SSL (HTTPS)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>PageSpeed 90+ garantizado</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Backup automático diario</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Protección anti-spam</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section id="tecnologias" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Stack Tecnológico</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Utilizamos las herramientas más modernas y confiables del mercado
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition text-center">
+                    <div class="text-4xl mb-3">⚛️</div>
+                    <h4 class="font-semibold text-gray-900">React</h4>
+                    <p class="text-sm text-gray-600 mt-1">Frontend</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition text-center">
+                    <div class="text-4xl mb-3">▲</div>
+                    <h4 class="font-semibold text-gray-900">Next.js</h4>
+                    <p class="text-sm text-gray-600 mt-1">Framework</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition text-center">
+                    <div class="text-4xl mb-3">🔥</div>
+                    <h4 class="font-semibold text-gray-900">Firebase</h4>
+                    <p class="text-sm text-gray-600 mt-1">Backend</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition text-center">
+                    <div class="text-4xl mb-3">🎨</div>
+                    <h4 class="font-semibold text-gray-900">Tailwind</h4>
+                    <p class="text-sm text-gray-600 mt-1">CSS</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition text-center">
+                    <div class="text-4xl mb-3">🟢</div>
+                    <h4 class="font-semibold text-gray-900">Node.js</h4>
+                    <p class="text-sm text-gray-600 mt-1">Server</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition text-center">
+                    <div class="text-4xl mb-3">🐘</div>
+                    <h4 class="font-semibold text-gray-900">PostgreSQL</h4>
+                    <p class="text-sm text-gray-600 mt-1">Database</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Packages -->
+    <section id="paquetes" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Paquetes de Desarrollo</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Soluciones escalables que crecen con tu negocio
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Starter Package -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover border-2 border-gray-200">
+                    <div class="p-8">
+                        <div class="text-sm font-semibold text-indigo-600 mb-2">PAQUETE BASE</div>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-4">Starter</h3>
+                        <div class="mb-6">
+                            <span class="text-5xl font-bold text-gray-900">$6,000</span>
+                            <span class="text-gray-600 ml-2">MXN</span>
+                        </div>
+                        <p class="text-gray-600 mb-6">Perfecto para empezar tu presencia digital profesional</p>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700">3 vistas públicas completas</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700">Panel CMS personalizado</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700">Diseño responsive 100%</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700">SSL + SEO básico</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700">30 días soporte incluido</span>
+                            </li>
+                        </ul>
+                        <a href="#calculadora" class="block w-full text-center bg-gray-100 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition">
+                            Seleccionar Plan
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Pro Package (Más Popular) -->
+                <div class="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl shadow-2xl overflow-hidden card-hover transform scale-105">
+                    <div class="bg-yellow-400 text-center py-2">
+                        <span class="text-sm font-bold text-gray-900">🔥 MÁS POPULAR</span>
+                    </div>
+                    <div class="p-8 text-white">
+                        <div class="text-sm font-semibold text-indigo-200 mb-2">RECOMENDADO</div>
+                        <h3 class="text-3xl font-bold mb-4">Professional</h3>
+                        <div class="mb-6">
+                            <span class="text-5xl font-bold">$14,000</span>
+                            <span class="text-indigo-200 ml-2">MXN</span>
+                        </div>
+                        <p class="text-indigo-100 mb-6">Para negocios que buscan vender online desde el día 1</p>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-yellow-400 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span><strong>Todo lo del Starter +</strong></span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-yellow-400 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span><strong>Pasarela de Pagos</strong></span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-yellow-400 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>Carrito de compras</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-yellow-400 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>Notificaciones automáticas</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-yellow-400 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>90 días soporte premium</span>
+                            </li>
+                        </ul>
+                        <a href="#calculadora" class="block w-full text-center bg-white text-indigo-600 px-6 py-3 rounded-lg font-bold hover:bg-indigo-50 transition shadow-lg">
+                            Empezar Ahora
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Enterprise Package -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover border-2 border-gray-200">
+                    <div class="p-8">
+                        <div class="text-sm font-semibold text-purple-600 mb-2">TODO INCLUIDO</div>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-4">Enterprise</h3>
+                        <div class="mb-6">
+                            <span class="text-5xl font-bold text-gray-900">$18,000</span>
+                            <span class="text-gray-600 ml-2">MXN</span>
+                        </div>
+                        <p class="text-gray-600 mb-6">La solución completa para dominar el mercado digital</p>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span><strong>Todo lo del Pro +</strong></span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>Sistema de inventario</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>Blog con SEO avanzado</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>Multiidioma (ES/EN)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>6 meses soporte premium</span>
+                            </li>
+                        </ul>
+                        <a href="#calculadora" class="block w-full text-center bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-indigo-700 transition shadow-lg">
+                            Contactar Ahora
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Budget Calculator -->
+    <section id="calculadora" class="py-20 bg-gradient-to-br from-indigo-50 to-purple-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">🧮 Calculadora de Presupuesto</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Personaliza tu proyecto y conoce el costo exacto en tiempo real
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-2xl overflow-hidden" x-data="{
+                selectedPackage: 'starter',
+                features: {
+                    pasarela: { selected: false, price: 8000, name: 'Pasarela de Pagos (E-commerce)' },
+                    pedidos: { selected: false, price: 4000, name: 'Sistema de Pedidos/Cotizaciones' },
+                    blog: { selected: false, price: 1500, name: 'Blog/Sistema de Noticias' },
+                    chat: { selected: false, price: 800, name: 'Chat en Vivo' },
+                    inventario: { selected: false, price: 3000, name: 'Sistema de Inventario' },
+                    multiidioma: { selected: false, price: 1200, name: 'Soporte Multiidioma' },
+                    pwa: { selected: false, price: 1800, name: 'PWA Avanzada' },
+                    facturacion: { selected: false, price: 2000, name: 'Facturación CFDI 4.0' }
+                },
+                get totalPrice() {
+                    let packagePrice = this.selectedPackage === 'starter' ? 6000 : 
+                                      this.selectedPackage === 'pro' ? 14000 : 18000;
+                    let featuresPrice = Object.values(this.features)
+                        .filter(f => f.selected)
+                        .reduce((sum, f) => sum + f.price, 0);
+                    return packagePrice + featuresPrice;
+                },
+                get selectedFeaturesCount() {
+                    return Object.values(this.features).filter(f => f.selected).length;
+                },
+                selectPackage(pkg) {
+                    this.selectedPackage = pkg;
+                    if (pkg === 'pro') {
+                        this.features.pasarela.selected = true;
+                        this.features.pedidos.selected = true;
+                    } else if (pkg === 'enterprise') {
+                        this.features.pasarela.selected = true;
+                        this.features.pedidos.selected = true;
+                        this.features.blog.selected = true;
+                        this.features.inventario.selected = true;
+                        this.features.multiidioma.selected = true;
+                        this.features.pwa.selected = true;
+                    } else {
+                        Object.keys(this.features).forEach(key => {
+                            this.features[key].selected = false;
+                        });
+                    }
+                }
+            }">
+                <div class="grid lg:grid-cols-2">
+                    <!-- Left Side - Selection -->
+                    <div class="p-8 lg:p-12 bg-gray-50">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-6">Selecciona tu Paquete Base</h3>
+                        
+                        <!-- Package Selection -->
+                        <div class="space-y-3 mb-8">
+                            <label class="flex items-center p-4 bg-white rounded-lg border-2 cursor-pointer transition" 
+                                   :class="selectedPackage === 'starter' ? 'border-indigo-600 bg-indigo-50' : 'border-gray-200 hover:border-indigo-300'"
+                                   @click="selectPackage('starter')">
+                                <input type="radio" name="package" value="starter" class="mr-4" x-model="selectedPackage">
+                                <div class="flex-1">
+                                    <div class="font-bold text-gray-900">Starter</div>
+                                    <div class="text-sm text-gray-600">Sitio web básico + CMS</div>
+                                </div>
+                                <div class="font-bold text-indigo-600">$6,000</div>
+                            </label>
+
+                            <label class="flex items-center p-4 bg-white rounded-lg border-2 cursor-pointer transition" 
+                                   :class="selectedPackage === 'pro' ? 'border-indigo-600 bg-indigo-50' : 'border-gray-200 hover:border-indigo-300'"
+                                   @click="selectPackage('pro')">
+                                <input type="radio" name="package" value="pro" class="mr-4" x-model="selectedPackage">
+                                <div class="flex-1">
+                                    <div class="font-bold text-gray-900">Professional 🔥</div>
+                                    <div class="text-sm text-gray-600">Starter + E-commerce</div>
+                                </div>
+                                <div class="font-bold text-indigo-600">$14,000</div>
+                            </label>
+
+                            <label class="flex items-center p-4 bg-white rounded-lg border-2 cursor-pointer transition" 
+                                   :class="selectedPackage === 'enterprise' ? 'border-indigo-600 bg-indigo-50' : 'border-gray-200 hover:border-indigo-300'"
+                                   @click="selectPackage('enterprise')">
+                                <input type="radio" name="package" value="enterprise" class="mr-4" x-model="selectedPackage">
+                                <div class="flex-1">
+                                    <div class="font-bold text-gray-900">Enterprise</div>
+                                    <div class="text-sm text-gray-600">Todo incluido</div>
+                                </div>
+                                <div class="font-bold text-indigo-600">$18,000</div>
+                            </label>
+                        </div>
+
+                        <h3 class="text-2xl font-bold text-gray-900 mb-6 mt-8">Módulos Adicionales</h3>
+                        
+                        <!-- Feature Checkboxes -->
+                        <div class="space-y-3">
+                            <template x-for="(feature, key) in features" :key="key">
+                                <label class="flex items-center p-4 bg-white rounded-lg border-2 cursor-pointer transition"
+                                       :class="feature.selected ? 'border-green-500 bg-green-50' : 'border-gray-200 hover:border-green-300'">
+                                    <input type="checkbox" class="mr-4 w-5 h-5 text-green-600" x-model="feature.selected">
+                                    <div class="flex-1">
+                                        <div class="font-semibold text-gray-900 text-sm" x-text="feature.name"></div>
+                                    </div>
+                                    <div class="font-bold text-green-600" x-text="'+$' + feature.price.toLocaleString()"></div>
+                                </label>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Right Side - Summary -->
+                    <div class="p-8 lg:p-12 bg-gradient-to-br from-indigo-600 to-purple-600 text-white">
+                        <h3 class="text-2xl font-bold mb-6">💰 Resumen de Cotización</h3>
+                        
+                        <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 mb-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-indigo-100">Paquete Base:</span>
+                                <span class="font-bold text-xl capitalize" x-text="selectedPackage"></span>
+                            </div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-indigo-100">Módulos Extra:</span>
+                                <span class="font-bold text-xl" x-text="selectedFeaturesCount"></span>
+                            </div>
+                            <div class="border-t border-white/20 pt-4 mt-4">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-2xl font-bold">Total:</span>
+                                    <span class="text-4xl font-extrabold" x-text="'$' + totalPrice.toLocaleString() + ' MXN'"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 mb-6">
+                            <h4 class="font-bold mb-3 flex items-center">
+                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                                </svg>
+                                Siempre Incluido:
+                            </h4>
+                            <ul class="space-y-2 text-sm text-indigo-100">
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>Diseño 100% Responsive</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>Certificado SSL (HTTPS)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>SEO On-Page</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>Google Analytics</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>Capacitación + Manual</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>30 días Soporte</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-yellow-400 text-gray-900 rounded-xl p-4 mb-6">
+                            <div class="flex items-start">
+                                <svg class="w-6 h-6 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                                </svg>
+                                <div>
+                                    <div class="font-bold mb-1">💡 Forma de Pago</div>
+                                    <div class="text-sm">50% anticipo + 50% contra entrega</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="#contacto" class="block w-full text-center bg-white text-indigo-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-indigo-50 transition shadow-xl">
+                            Solicitar Cotización Formal
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contacto" class="py-20 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl md:text-5xl font-extrabold mb-6">¿Listo para Transformar tu Negocio?</h2>
+            <p class="text-xl md:text-2xl text-indigo-100 mb-10">
+                Agenda una consultoría gratuita y descubre cómo podemos llevar tu presencia digital al siguiente nivel
+            </p>
+            
+            <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 mb-8">
+                <div class="grid md:grid-cols-3 gap-6 text-center mb-8">
+                    <div>
+                        <div class="text-4xl mb-2">📧</div>
+                        <div class="font-semibold mb-1">Email</div>
+                        <a href="mailto:contacto@krdev.com" class="text-indigo-200 hover:text-white transition">contacto@krdev.com</a>
+                    </div>
+                    <div>
+                        <div class="text-4xl mb-2">📱</div>
+                        <div class="font-semibold mb-1">WhatsApp</div>
+                        <a href="https://wa.me/523312345678" target="_blank" class="text-indigo-200 hover:text-white transition">+52 33 1234 5678</a>
+                    </div>
+                    <div>
+                        <div class="text-4xl mb-2">📍</div>
+                        <div class="font-semibold mb-1">Ubicación</div>
+                        <div class="text-indigo-200">Guadalajara, Jalisco</div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="https://wa.me/523312345678?text=Hola,%20me%20interesa%20una%20cotización%20para%20desarrollo%20web" target="_blank" class="bg-green-500 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-green-600 transition inline-flex items-center justify-center shadow-xl">
+                        <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                        </svg>
+                        Chatear en WhatsApp
+                    </a>
+                    <a href="mailto:contacto@krdev.com?subject=Solicitud%20de%20Cotización" class="bg-white text-indigo-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-indigo-50 transition inline-flex items-center justify-center shadow-xl">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                        Enviar Correo
+                    </a>
+                </div>
+            </div>
+
+            <p class="text-sm text-indigo-200">
+                ⚡ Respuesta en menos de 24 horas | 🎁 Primera consultoría gratuita
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h3 class="text-white font-bold text-2xl mb-4 gradient-text">KR.Dev</h3>
+                <p class="text-sm text-gray-400 mb-8">
+                    Desarrollo web profesional | Guadalajara, Jalisco, México
+                </p>
+                <div class="border-t border-gray-800 pt-8">
+                    <p class="text-sm text-gray-400">
+                        © 2026 KR.Dev - Todos los derechos reservados
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <div x-data="{ show: false }" 
+         @scroll.window="show = window.pageYOffset > 500"
+         x-show="show"
+         x-transition
+         class="fixed bottom-8 right-8 z-50">
+        <a href="#inicio" class="bg-indigo-600 text-white p-4 rounded-full shadow-2xl hover:bg-indigo-700 transition block">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+            </svg>
+        </a>
+    </div>
+
+</body>
+</html>
